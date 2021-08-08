@@ -28,11 +28,11 @@
     	
     	#container{
     		text-align:center;
-    		padding: 8% 0 8% 0;
+    		padding: 5% 0 3% 0;
     	}
     	@media (max-width: 1000px) {
 	    	#container{
-	    		padding: 15% 0 15% 0;
+	    		padding: 10% 0 5% 0;
 	    	}
 	    }
     	
@@ -100,7 +100,7 @@
 	    
 	    .row {
 	    	margin-top: 3%;
-	    	padding: 0 5% 0 5%;
+	    	padding: 0 11% 0 11%;
 	    }
 	    .card-header{
 	    	font-size: 1.3vw;
@@ -188,6 +188,54 @@
 	    }
 	    
 	    
+	    /* 잡코리아 스타일 */
+	    .super-tag{
+	    	margin-left: 1%;
+	    }
+	    
+	    .jobkorea-box {
+	    	position: relative;
+	    	width: 100%;
+	    	min-height: 80px;
+	    	text-align: left;
+	    	color: var(--fontcolor);
+	    }
+	    
+	    .jobkorea-summary{
+	    	display: block;
+	    	text-align: center;
+	    }
+	    
+	    .jobkorea-summary > li{
+	    	width: 20%;
+	    	float: left;
+	    }
+	    
+	    .jobkorea-summary > li p:nth-child(1){
+	    	font-size: 1.2rem;
+	    	font-weight: bold;
+	    	letter-spacing: 0.04vw;
+	    	margin: 0 !important;
+	    }
+	    .jobkorea-summary > li p:nth-child(2){
+	    	margin-top: 5%;
+	    	font-size: 0.85rem;
+	    }
+	    
+	    .jobkorea-info table{
+	    	text-align: left;
+	    	width: 100%;
+	    }
+	    
+	    .jobkorea-info tr{
+	    	height: 2.15vw;
+	    }
+	    
+	    .jobkorea-info th{
+	    	color: var(--lightgray);
+	   	}
+	    
+	    
 	    /* 사람인 스타일 */
 	    .saramin-box {
 	    	position: relative;
@@ -203,7 +251,7 @@
 	    }
 	    
 	    .section-margin{
-	    	margin: 4% 0 4% 0;
+	    	margin: 4% 2% 4% 2%;
 	    }
 	    
 	    .saram-summary{
@@ -226,7 +274,7 @@
 	    }
 	    
 	    .wrap_detail{
-	    	margin: 4% 0 4% 0;
+	    	margin: 4% 2% 4% 2%;
 	    }
 	    
 	    .saram-info {
@@ -238,11 +286,11 @@
 	    	width: 13%;
 	    	color: var(--lightgray);
 	    	
-	    	margin: 1% 0 1% 0;
+	    	margin: 1% 2% 1% 0;
 	    }
 	    .saram-info > dd {
 	    	float: left;
-	    	width: 87%;
+	    	width: 85%;
 	    	
 	    	margin: 1% 0 1% 0;
 	    }
@@ -266,18 +314,18 @@
 			var search = ((decodeURI(location.href).split("?"))[1].split("="))[1];
 			$('#searchInput').attr('value', search);
 			
-			<!-- 잡플래닛 -->
-			var url = "https://www.jobplanet.co.kr/search/companies/" + search;
 			
-			$.get(decodeURI(url), function(data) {
+			<!-- 잡플래닛 -->
+			var pUrl = "https://www.jobplanet.co.kr/search/companies/" + search;
+			
+			$.get(decodeURI(pUrl), function(data) {
+				var app = '<div class="card shadow mb-4">' + 
+							'<div class="card-header"><p class="m-0 font-weight-bold text-primary">' + '잡플래닛' + '</p></div>' + 
+							'<div class="card-body">';
+				
 				var code = sliceCode(data, '<section class="company content_ty3">', '</section>', 0);
 				
 				if(sliceCode(code, '<dt class="us_titb_l3">', '</dt>').indexOf(search) != -1) {
-					
-					var app = '<div class="col-lg-6"><div class="card shadow mb-4">' + 
-								'<div class="card-header"><p class="m-0 font-weight-bold text-primary">' + '잡플래닛' + '</p></div>' + 
-								'<div class="card-body">';
-					
 					code = code.replace(/<a href=\"/g, '<a target="_blank" href="https://www.jobplanet.co.kr');
 					
 					var logoCode = sliceCode(code, '<div class="content_col2_2">', '</div>', 0);
@@ -291,36 +339,130 @@
 					
 					var score = '<span class="gfvalue">'
 					app = app + '<div class="jobplanet-score"><span>평점 &nbsp;' + code.substr(code.indexOf(score)+score.length, 3) + '</span></div>';
-					
-					app = app + '</div></div></div>';
-					$('.row').append(app);
-					
-					//$('.row').append(code.slice(20, -6));
 				} else {
-					$('.row').html('<div class="blank">검색 결과가 없습니다.</div>');
+					app = app + '<div class="blank">검색 결과가 없습니다.</div>';
 				}
+				
+				app = app + '</div></div>';
+				blockLocation(app);
+			});
+			
+
+			<!-- 잡코리아 -->
+			var kUrl = 'https://www.google.com/search?q=잡코리아+' + search;
+			
+			$.get(decodeURI(kUrl), function(data) {
+				var code = sliceCode(data, '<div class="yuRUbf">', '<div class="IsZvec">', 1);
+				kUrl = sliceCode(code, '<a href="', '"', 0);
+				
+				$.get(decodeURI(kUrl), function(data) {
+					var app = '<div class="card shadow mb-4">' + 
+								'<div class="card-header"><p class="m-0 font-weight-bold text-primary">' + '잡코리아' + '</p></div>' + 
+								'<div class="card-body">';
+					
+					var type = 0;
+					if(kUrl.indexOf('super') != -1) type = 1; //슈퍼기업페이지
+					
+					var name = "";
+					if(type == 1) //슈퍼기업페이지
+						name = sliceCode(data, '<h2 class="giHd clear">', '<!--', 0);
+					else 
+						name = sliceCode(data, '<div class="name">', '</div>', 0);
+					
+					if(name.indexOf(search) != -1) {
+						$('#linkArea').append('<a id="jobkoreaLink" class="link" target="_blank" href="' + kUrl + '"><img src="./img/jobkorea.png"/></a>');
+						
+						//기업명
+						app = app + '<a class="company-name section-margin" target="_blank" href="' + kUrl + '">' + name;
+						
+						if(type == 1) { //슈퍼기업페이지
+							app = app + '<button class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm super-tag" disabled>super</button></a><hr/>';
+							
+							//써머리
+							var summaryCode = sliceCode(data, '<ul>', '</ul>', 0);
+							app = app + '<div class="jobkorea-box"><ul class="jobkorea-summary section-margin">';
+							
+							var point = 0, targetCode = "";
+							var liCount = summaryCode.match(/<li/g).length;
+							for(var i = 0; i < liCount; i++) {
+								point = targetCode.indexOf('</li>') + 5;
+								if(i == 0) targetCode = summaryCode;
+								else targetCode = targetCode.slice(point);
+								
+								app = app + '<li>' + sliceCode(targetCode, '<p>', '</li>', 1) + '</li>';
+							}
+							
+							app = app + '</ul></div>';
+							/* 
+							//사업분야
+							var categoryCode = sliceCode(data, '<div class="corbus"', '</div><!--corbus-->', 1);
+							app = app + categoryCode;
+							 */
+						} else { //일반기업페이지
+							app = app + '</a><hr/>';
+							
+							//기업정보
+							var infoCode = sliceCode(data, '<table class="table-basic-infomation-primary" ', '</table>', 1) + '</table>';
+							infoCode = infoCode.replace(sliceCode(infoCode, '<caption', '<tbody'), '');
+							
+							app = app + '<div class="jobkorea-info section-margin">'
+							
+							var point = 0, targetCode = "";
+							var trCount = infoCode.match(/<\/tr>/g).length;
+							
+							for(var i = 0; i < trCount; i++) {
+								point = targetCode.indexOf('</tr>') + 5;
+								if(i == 0) targetCode = infoCode;
+								else targetCode = targetCode.slice(point);
+								
+								var slice = sliceCode(targetCode, '', '</tr>', 1) + '</tr>';
+								if(slice.match(/<\/td>/g).length > 1)
+									slice = slice.replace('</td>', '</td></tr><tr class="field-label">');
+								
+								app = app + slice;
+							}
+							app = app + '</table></div><hr/>';
+							
+							//기업소개
+							var detailCode = sliceCode(data, '<div class="introduce-body">', '<a ', 1);
+							console.log(detailCode);
+							app = app + '<div class="jobkorea-detail section-margin">' + detailCode + '</div>';
+							
+						}
+						
+						
+					} else {
+						app = app + '<div class="blank">검색 결과가 없습니다.</div>';
+					}
+					
+					app = app + '</div></div>';
+					blockLocation(app);
+				});
+
 			});
 
 			
 			<!-- 사람인 -->
-			url = 'https://www.google.com/search?q=사람인+' + search;
-
-			$.get(decodeURI(url), function(data) {
+			var sUrl = 'https://www.google.com/search?q=사람인+' + search;
+			
+			$.get(decodeURI(sUrl), function(data) {
 				var code = sliceCode(data, '<div class="yuRUbf">', '<div class="IsZvec">', 1);
-				url = sliceCode(code, '<a href="', '"', 0);
+				sUrl = sliceCode(code, '<a href="', '"', 0);
 				
-				$.get(decodeURI(url), function(data) {
+				$.get(decodeURI(sUrl), function(data) {
+					var app = '<div class="card shadow mb-4">' + 
+								'<div class="card-header"><p class="m-0 font-weight-bold text-primary">' + '사람인' + '</p></div>' + 
+								'<div class="card-body">';
+					
 					var name = sliceCode(data, '<span class="name">', '</span>', 0);
 					
 					if(name.indexOf(search) != -1) {
-						$('#linkArea').append('<a id="saramLink" class="link" target="_blank" href="' + url + '"><img src="./img/saramin.png"/></a>');
+						$('#linkArea').append('<a id="saramLink" class="link" target="_blank" href="' + sUrl + '"><img src="./img/saramin.png"/></a>');
 						
-						var app = '<div class="col-lg-6"><div class="card shadow mb-4">' + 
-									'<div class="card-header"><p class="m-0 font-weight-bold text-primary">' + '사람인' + '</p></div>' + 
-									'<div class="card-body">';
+						//기업명
+						app = app + '<a class="company-name section-margin" target="_blank" href="' + sUrl + '">' + name + '</a><hr/>';
 						
-						app = app + '<span class="company-name section-margin">' + name + '</span><hr/>';
-						
+						//써머리
 						var summaryCode = sliceCode(data, '<ul class="summary">', '</ul>', 0);
 						app = app + '<div class="saramin-box"><ul class="saram-summary section-margin">';
 						
@@ -337,7 +479,8 @@
 						}
 						
 						app = app + '</ul></div><hr/>';
-						
+
+						//기업설명
 						if(data.indexOf('<div class="wrap_detail">') != -1) {
 							var detailCode = sliceCode(data, '<div class="detail">', '</div>', 0);
 							
@@ -348,23 +491,35 @@
 							
 							app = app + '<div class="section-margin">' + detailCode + '</div><hr/>';
 						}
-						
+
+						//기업정보
 						var infoCode = sliceCode(data, '<dl class="info">', '</dl>', 0);
 						if(data.indexOf('<dl class="info vision">') != -1) {
 							infoCode = infoCode + sliceCode(data, '<dl class="info vision">', '</dl>', 0);
 						}
 						
 						app = app + '<dl class="saram-info section-margin">' + infoCode + '</dl>';
-						
-						app = app + '</div></div></div>';
-						$('.row').append(app);
 					} else {
-						$('.row').html('<div class="blank">검색 결과가 없습니다.</div>');
+						app = app + '<div class="blank">검색 결과가 없습니다.</div>';
 					}
+					
+					app = app + '</div></div>';
+					blockLocation(app);
 				});
 			});
 			
 		});
+		
+		function blockLocation(app) {
+			var firLength = parseInt($('#col1').css('height'));
+			var secLength = parseInt($('#col2').css('height'));
+			
+			if(firLength <= secLength) {
+				$('#col1').append(app);
+			} else {
+				$('#col2').append(app);
+			}
+		}
 	</script>
 	
 	<nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow blue_bg">
@@ -394,7 +549,14 @@
 		</div>
 		 
         <div class="row">
+        	<div class="col-lg-6">
+        		<div id="col1"></div>
+        	</div>
+        	<div class="col-lg-6">
+        		<div id="col2"></div>
+        	</div>
 		</div>
 	</div>
+	
 </body>
 </html>

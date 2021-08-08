@@ -44,6 +44,10 @@ html, body {
 	background-color: #fff !important;
 }
 
+.lightgray_cl{
+	color: var(--lightgray) !important;
+}
+
 a {
 	color: var(--fontcolor);
 	text-decoration: none !important;
