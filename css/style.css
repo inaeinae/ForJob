@@ -8,7 +8,7 @@ html, body {
 	height: 100%;
 	padding: 0;
 	margin: 0;
-	color: #787a84;
+	color: var();
 	
 	font-size: 1.1rem;
 }
@@ -25,6 +25,7 @@ html, body {
 :root {
 	--fontcolor: #787a84;
 	--mainblue: #1da1f2;
+	--lightgray: #cfd0d8;
 }
 
 .blue_cl{
@@ -44,19 +45,22 @@ html, body {
 }
 
 a {
-	color: #787a84;
+	color: var(--fontcolor);
 	text-decoration: none !important;
 }
 a:link {
-	color: #787a84;
+	color: var(--fontcolor);
 	text-decoration: none !important;
 }
 a:visited {
-	color: #787a84;
+	color: var(--fontcolor);
 	text-decoration: none !important;
 }
 a:hover {
-	color: #787a84;
+	color: var(--fontcolor);
 	text-decoration: none !important;
 }
 
+ul, li {
+	list-style: none;
+}

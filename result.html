@@ -66,9 +66,10 @@
 	    	}
 	    }
 	    
-	    /* 
 	    #linkArea {
-	    	margin-top: 3%;
+		    display: flex;
+		    justify-content: center;
+	    	margin-top: 6%;
 	    }
     	@media (max-width: 1000px) {
 		    #linkArea {
@@ -76,21 +77,29 @@
 		    }
 	    }
 	    
-	    .link > img {
+	    .link {
 	    	width: 3% !important;
 	    	height: auto;
-	    	margin: 0 2% 0 2%;
+	    	float: left;
+	    	margin: 0 1% 0 1%;
+	    	
+	    	overflow: hidden;
+	    	border: 1px solid #e6e6e6;
 	    }
     	@media (max-width: 1000px) {
-		    .link > img {
+	    	.link {
 		    	width: 10% !important;
 	    		margin: 0 1% 0 1%;
 		    }
 	    }
-	     */
+	    
+	    .link > img {
+	    	width: 100%;
+	    	vertical-align: middle;
+	    }
 	    
 	    .row {
-	    	margin-top: 8%;
+	    	margin-top: 3%;
 	    	padding: 0 5% 0 5%;
 	    }
 	    .card-header{
@@ -107,6 +116,16 @@
 		    }
 	    }
 	    
+	    .blank {
+	    	width: 100%;
+	    	text-align: center;
+	    	font-size: 1.4rem;
+	    	font-weight: bold;
+	    }
+	    
+	    
+	    
+	    /* 잡플래닛 스타일 */
 	    .jobplanet-box {
 	    	display: table;
 	    	position: relative;
@@ -116,7 +135,7 @@
 	    	color: var(--fontcolor);
 	    }
 	    
-	    .company-logo{
+	    .jobplanet-logo{
 	    	width: 5vw;
 	    	min-width: 80px;
 	    	min-height: 80px;
@@ -127,7 +146,7 @@
 	    	box-sizing: border-box;
 	    }
 	    
-	    .company-logo > a {
+	    .jobplanet-logo > a {
 	    	float: left;
 	    	display: block;
 	    	position: relative;
@@ -141,12 +160,12 @@
 	    	line-height: 5vw;
 	    }
 	    
-	    .company-logo > a > img {
+	    .jobplanet-logo > a > img {
 	    	width: 100%;
 	    	vertical-align: middle;
 	    }
 	    
-	    .company-info{
+	    .jobplanet-info{
 	    	display: table-cell;
 	    	vertical-align: top;
 	    	box-sizing: border-box;
@@ -154,25 +173,78 @@
 	    	padding-left: 5%;
 	    }
 	    
-	    .score {
-	    	display: table;
-	    	vertical-align: top;
+	    .jobplanet-score {
+	    	display: table-cell;
+	    	text-align: center;
+	    	vertical-align: middle;
 	    	box-sizing: border-box;
 	    	
 			font-size: 1.2rem;
-	    	padding-left: 5%;
+			font-weight: bold;
 	    }
-	    .score dt{
-	    	display: table-cell;
-	    	text-align: center;
-	    	vertical-align: middle;
+	    .jobplanet-score > span{
+	    	display: block;
+	    	margin: auto;
 	    }
 	    
-	    .blank {
+	    
+	    /* 사람인 스타일 */
+	    .saramin-box {
+	    	position: relative;
 	    	width: 100%;
-	    	text-align: center;
-	    	font-size: 1.4rem;
+	    	min-height: 80px;
+	    	text-align: left;
+	    	color: var(--fontcolor);
+	    }
+	    
+	    .company-name{
 	    	font-weight: bold;
+	    	font-size: 1.3rem;
+	    }
+	    
+	    .section-margin{
+	    	margin: 4% 0 4% 0;
+	    }
+	    
+	    .saram-summary{
+	    	display: block;
+	    	text-align: center;
+	    }
+	    
+	    .saram-summary > li{
+	    	width: 25%;
+	    	float: left;
+	    }
+	    
+	    .saram-summary > li > span{
+	    	font-size: 0.85rem;
+	    }
+	    .saram-summary > li > strong{
+	    	margin-top: 5%;
+	    	font-size: 1.2rem;
+	    	letter-spacing: 0.04vw;
+	    }
+	    
+	    .wrap_detail{
+	    	margin: 4% 0 4% 0;
+	    }
+	    
+	    .saram-info {
+	    	text-align: left;
+	    }
+	    
+	    .saram-info > dt {
+	    	float: left;
+	    	width: 13%;
+	    	color: var(--lightgray);
+	    	
+	    	margin: 1% 0 1% 0;
+	    }
+	    .saram-info > dd {
+	    	float: left;
+	    	width: 87%;
+	    	
+	    	margin: 1% 0 1% 0;
 	    }
     </style>
 	
@@ -182,40 +254,43 @@
 		
 		function sliceCode(code, start, end, type) {
 			var stLength = 0;
+			if(type == 0) stLength = start.length;
+			// type == 0 : 시작 코드 생략
+			// type != 0 : 시작 코드 포함
 			
-			if(type == 0)
-				stLength = start.length;
-			else
-				stLength = 0;
-			
-			return code.substring(code.indexOf(start)+stLength, code.indexOf(end));
+			start = code.indexOf(start)+stLength;
+			return code.substring(start, code.indexOf(end, start));
 		}
 		
 		$(function() {
 			var search = ((decodeURI(location.href).split("?"))[1].split("="))[1];
 			$('#searchInput').attr('value', search);
 			
+			<!-- 잡플래닛 -->
 			var url = "https://www.jobplanet.co.kr/search/companies/" + search;
 			
-			var jqxhr = $.get(decodeURI(url), function(data) {
+			$.get(decodeURI(url), function(data) {
 				var code = sliceCode(data, '<section class="company content_ty3">', '</section>', 0);
 				
 				if(sliceCode(code, '<dt class="us_titb_l3">', '</dt>').indexOf(search) != -1) {
+					
 					var app = '<div class="col-lg-6"><div class="card shadow mb-4">' + 
-					'<div class="card-header"><p class="m-0 font-weight-bold text-primary">' + '잡플래닛' + '</p></div>' + 
-					'<div class="card-body">';
+								'<div class="card-header"><p class="m-0 font-weight-bold text-primary">' + '잡플래닛' + '</p></div>' + 
+								'<div class="card-body">';
+					
+					code = code.replace(/<a href=\"/g, '<a target="_blank" href="https://www.jobplanet.co.kr');
 					
 					var logoCode = sliceCode(code, '<div class="content_col2_2">', '</div>', 0);
-					logoCode = logoCode.replace(/<a href=\"/g, '<a target="_blank" href="https://www.jobplanet.co.kr');
-					app = app + '<div class="jobplanet-box"><div class="company-logo">' + logoCode + '</div>';
+					app = app + '<div class="jobplanet-box"><div class="jobplanet-logo">' + logoCode + '</div>';
+					$('#linkArea').append('<a id="jobplanetLink" class="link" target="_blank" href="' +
+											sliceCode(logoCode, 'href="', '" class', 0) + '"><img src="./img/jobplanet.png"/></a>');
 					
 					var infoCode = sliceCode(code, '<dl class="content_col2_3 cominfo">', '</dl>', 0);
-					infoCode = infoCode.replace(/<a href=\"/g, '<a target="_blank" href="https://www.jobplanet.co.kr');
 					infoCode = infoCode.replace(sliceCode(infoCode, '<button', '</button>', 1), '');
-					app = app + '<dl class="company-info">' + infoCode + '</dl>';
+					app = app + '<dl class="jobplanet-info">' + infoCode + '</dl>';
 					
 					var score = '<span class="gfvalue">'
-					app = app + '<dl class="score"><dt><span>평점 ' + code.substr(code.indexOf(score)+score.length, 3) + '</span></dt></dl>';
+					app = app + '<div class="jobplanet-score"><span>평점 &nbsp;' + code.substr(code.indexOf(score)+score.length, 3) + '</span></div>';
 					
 					app = app + '</div></div></div>';
 					$('.row').append(app);
@@ -224,6 +299,69 @@
 				} else {
 					$('.row').html('<div class="blank">검색 결과가 없습니다.</div>');
 				}
+			});
+
+			
+			<!-- 사람인 -->
+			url = 'https://www.google.com/search?q=사람인+' + search;
+
+			$.get(decodeURI(url), function(data) {
+				var code = sliceCode(data, '<div class="yuRUbf">', '<div class="IsZvec">', 1);
+				url = sliceCode(code, '<a href="', '"', 0);
+				
+				$.get(decodeURI(url), function(data) {
+					var name = sliceCode(data, '<span class="name">', '</span>', 0);
+					
+					if(name.indexOf(search) != -1) {
+						$('#linkArea').append('<a id="saramLink" class="link" target="_blank" href="' + url + '"><img src="./img/saramin.png"/></a>');
+						
+						var app = '<div class="col-lg-6"><div class="card shadow mb-4">' + 
+									'<div class="card-header"><p class="m-0 font-weight-bold text-primary">' + '사람인' + '</p></div>' + 
+									'<div class="card-body">';
+						
+						app = app + '<span class="company-name section-margin">' + name + '</span><hr/>';
+						
+						var summaryCode = sliceCode(data, '<ul class="summary">', '</ul>', 0);
+						app = app + '<div class="saramin-box"><ul class="saram-summary section-margin">';
+						
+						var point = 0, targetCode = "";
+						var liCount = summaryCode.match(/<li>/g).length;
+						
+						for(var i = 0; i < liCount; i++) {
+							point = targetCode.indexOf('</li>') + 5;
+							if(i == 0) targetCode = summaryCode;
+							else targetCode = targetCode.slice(point);
+							
+							app = app + '<li>' + sliceCode(targetCode, '<span>', '</span>', 1) + '</span><br>' + 
+										sliceCode(targetCode, '<strong>', '</strong>', 1) + '</strong></li>';
+						}
+						
+						app = app + '</ul></div><hr/>';
+						
+						if(data.indexOf('<div class="wrap_detail">') != -1) {
+							var detailCode = sliceCode(data, '<div class="detail">', '</div>', 0);
+							
+							if(detailCode.indexOf('<div class="hidden_text">') != -1) {
+								var point = '<div class="hidden_text">';
+								detailCode = detailCode.slice(detailCode.indexOf(point) + point.length);
+							}
+							
+							app = app + '<div class="section-margin">' + detailCode + '</div><hr/>';
+						}
+						
+						var infoCode = sliceCode(data, '<dl class="info">', '</dl>', 0);
+						if(data.indexOf('<dl class="info vision">') != -1) {
+							infoCode = infoCode + sliceCode(data, '<dl class="info vision">', '</dl>', 0);
+						}
+						
+						app = app + '<dl class="saram-info section-margin">' + infoCode + '</dl>';
+						
+						app = app + '</div></div></div>';
+						$('.row').append(app);
+					} else {
+						$('.row').html('<div class="blank">검색 결과가 없습니다.</div>');
+					}
+				});
 			});
 			
 		});
@@ -252,73 +390,11 @@
 			<p class="f-size mt-2">* 한글로 정확한 기업명을 입력해주세요. ( ABC→에이비씨 )</p>
 		</form>
 		
-		<!-- 
 		<div id="linkArea">
-			<div id="jobplanetLink" class="link">
-				<img src="./img/jobplanet.png"/>
-			</div>
 		</div>
-		 -->
 		 
         <div class="row">
 		</div>
-
-		<!-- 
-		<div class="jobplanet-box">
-			<div class="company-logo">
-				<a>
-					<img>
-				</a>
-			</div>
-			<dl class="company-info">
-				<dt class="name">
-					<a></a>
-				</dt>
-				<dd class="category">
-					<span></span>
-					<span class="vbar">|</span>
-					<span></span>
-					<br>
-				</dd>
-				<dd class="review">
-					<a></a>
-					<span class="vbar">|</span>
-					<a></a>
-					<span class="vbar">|</span>
-					<a></a>
-				</dd>
-			</dl>
-			<dl class="score">
-				<dt></dt>
-			</dl>
-		</div>
-		
-        <div class="row">
-        	<div class="col-lg-6">
-				<div class="card shadow mb-4">
-					<div class="card-header py-3">
-						<h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
-					</div>
-					<div class="card-body">The styling for this basic card example
-						is created by using default Bootstrap utility classes. By using
-						utility classes, the style of the card component can be easily
-						modified with no need for any custom CSS!</div>
-				</div>
-			</div>
-			
-        	<div class="col-lg-6">
-				<div class="card shadow mb-4">
-					<div class="card-header py-3">
-						<h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
-					</div>
-					<div class="card-body">The styling for this basic card example
-						is created by using default Bootstrap utility classes. By using
-						utility classes, the style of the card component can be easily
-						modified with no need for any custom CSS!</div>
-				</div>
-			</div>
-		</div>
-		 -->
 	</div>
 </body>
 </html>
