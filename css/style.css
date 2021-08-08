@@ -1,2 +1,62 @@
 @charset "EUC-KR";
 
+/* '스포카 한 산스 네오' 폰트 */
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
+html, body {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	color: #787a84;
+	
+	font-size: 1.1rem;
+}
+@media ( max-width : 1000px) {
+	.f-size {
+		font-size: 3.5vw;
+	}
+}
+
+*{
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}
+
+:root {
+	--fontcolor: #787a84;
+	--mainblue: #1da1f2;
+}
+
+.blue_cl{
+	color: #1da1f2 !important;
+}
+
+.blue_bg{
+	background-color: #1da1f2 !important;
+}
+
+.white_cl{
+	color: #fff !important;
+}
+
+.white_bg{
+	background-color: #fff !important;
+}
+
+a {
+	color: #787a84;
+	text-decoration: none !important;
+}
+a:link {
+	color: #787a84;
+	text-decoration: none !important;
+}
+a:visited {
+	color: #787a84;
+	text-decoration: none !important;
+}
+a:hover {
+	color: #787a84;
+	text-decoration: none !important;
+}
+

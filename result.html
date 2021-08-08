@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>ForJob</title>
+	
+	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+	
+	<!-- 폰트어썸 -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- 스타일 -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    
+    <style>
+    	#navLogo{
+    		font-size: 2rem;
+    	}
+    	
+    	#navTitle{
+    		font-size: 1.5rem;
+		    font-weight: 800;
+		    text-align: center;
+		    text-transform: uppercase;
+		    letter-spacing: .05rem;
+    	}
+    	
+    	#container{
+    		text-align:center;
+    		padding: 8% 0 8% 0;
+    	}
+    	@media (max-width: 1000px) {
+	    	#container{
+	    		padding: 15% 0 15% 0;
+	    	}
+	    }
+    	
+    	#searchBox{
+		  	display: inline-block;
+    		width: 40%;
+    		text-align: left;
+    	}
+    	@media (max-width: 1000px) {
+	    	#searchBox{
+    			width: 80%;
+	    	}
+	    }
+    	
+    	#searchBox input{
+    		font-size: 1.2rem;
+    	}
+    	@media (max-width: 1000px) {
+	    	#searchBox input{
+	    		font-size: 5.0vw;
+	    		padding: 3%;
+	    	}
+	    }
+    	
+	    .input-group-append > button > i {
+	    	font-size: 1.3rem;
+	    }
+    	@media (max-width: 1000px) {
+	    	.input-group-append > button > i {
+	    		font-size: 4.0vw;
+	    	}
+	    }
+	    
+	    /* 
+	    #linkArea {
+	    	margin-top: 3%;
+	    }
+    	@media (max-width: 1000px) {
+		    #linkArea {
+		    	margin-top: 5%;
+		    }
+	    }
+	    
+	    .link > img {
+	    	width: 3% !important;
+	    	height: auto;
+	    	margin: 0 2% 0 2%;
+	    }
+    	@media (max-width: 1000px) {
+		    .link > img {
+		    	width: 10% !important;
+	    		margin: 0 1% 0 1%;
+		    }
+	    }
+	     */
+	    
+	    .row {
+	    	margin-top: 8%;
+	    	padding: 0 5% 0 5%;
+	    }
+	    .card-header{
+	    	font-size: 1.3vw;
+	    }
+    	@media (max-width: 1000px) {
+	    	.row{
+	    		font-size: 3.8vw;
+	    		margin-top: 15%;
+	    		padding: 0 7% 0 7%;
+	    	}
+		    .card-header{
+		    	font-size: 4.5vw;
+		    }
+	    }
+	    
+	    .jobplanet-box {
+	    	display: table;
+	    	position: relative;
+	    	width: 100%;
+	    	min-height: 80px;
+	    	text-align: left;
+	    	color: var(--fontcolor);
+	    }
+	    
+	    .company-logo{
+	    	width: 5vw;
+	    	min-width: 80px;
+	    	min-height: 80px;
+	    	position: relative;
+	    	
+	    	display: table-cell;
+	    	vertical-align: top;
+	    	box-sizing: border-box;
+	    }
+	    
+	    .company-logo > a {
+	    	float: left;
+	    	display: block;
+	    	position: relative;
+	    	
+	    	overflow: hidden;
+	    	width: 5vw;
+	    	height: 5vw;
+	    	min-width: 80px;
+	    	min-height: 80px;
+	    	border: 1px solid #e6e6e6;
+	    	line-height: 5vw;
+	    }
+	    
+	    .company-logo > a > img {
+	    	width: 100%;
+	    	vertical-align: middle;
+	    }
+	    
+	    .company-info{
+	    	display: table-cell;
+	    	vertical-align: top;
+	    	box-sizing: border-box;
+	    	
+	    	padding-left: 5%;
+	    }
+	    
+	    .score {
+	    	display: table;
+	    	vertical-align: top;
+	    	box-sizing: border-box;
+	    	
+			font-size: 1.2rem;
+	    	padding-left: 5%;
+	    }
+	    .score dt{
+	    	display: table-cell;
+	    	text-align: center;
+	    	vertical-align: middle;
+	    }
+	    
+	    .blank {
+	    	width: 100%;
+	    	text-align: center;
+	    	font-size: 1.4rem;
+	    	font-weight: bold;
+	    }
+    </style>
+	
+</head>
+<body>
+	<script>
+		
+		function sliceCode(code, start, end, type) {
+			var stLength = 0;
+			
+			if(type == 0)
+				stLength = start.length;
+			else
+				stLength = 0;
+			
+			return code.substring(code.indexOf(start)+stLength, code.indexOf(end));
+		}
+		
+		$(function() {
+			var search = ((decodeURI(location.href).split("?"))[1].split("="))[1];
+			$('#searchInput').attr('value', search);
+			
+			var url = "https://www.jobplanet.co.kr/search/companies/" + search;
+			
+			var jqxhr = $.get(decodeURI(url), function(data) {
+				var code = sliceCode(data, '<section class="company content_ty3">', '</section>', 0);
+				
+				if(sliceCode(code, '<dt class="us_titb_l3">', '</dt>').indexOf(search) != -1) {
+					var app = '<div class="col-lg-6"><div class="card shadow mb-4">' + 
+					'<div class="card-header"><p class="m-0 font-weight-bold text-primary">' + '잡플래닛' + '</p></div>' + 
+					'<div class="card-body">';
+					
+					var logoCode = sliceCode(code, '<div class="content_col2_2">', '</div>', 0);
+					logoCode = logoCode.replace(/<a href=\"/g, '<a target="_blank" href="https://www.jobplanet.co.kr');
+					app = app + '<div class="jobplanet-box"><div class="company-logo">' + logoCode + '</div>';
+					
+					var infoCode = sliceCode(code, '<dl class="content_col2_3 cominfo">', '</dl>', 0);
+					infoCode = infoCode.replace(/<a href=\"/g, '<a target="_blank" href="https://www.jobplanet.co.kr');
+					infoCode = infoCode.replace(sliceCode(infoCode, '<button', '</button>', 1), '');
+					app = app + '<dl class="company-info">' + infoCode + '</dl>';
+					
+					var score = '<span class="gfvalue">'
+					app = app + '<dl class="score"><dt><span>평점 ' + code.substr(code.indexOf(score)+score.length, 3) + '</span></dt></dl>';
+					
+					app = app + '</div></div></div>';
+					$('.row').append(app);
+					
+					//$('.row').append(code.slice(20, -6));
+				} else {
+					$('.row').html('<div class="blank">검색 결과가 없습니다.</div>');
+				}
+			});
+			
+		});
+	</script>
+	
+	<nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow blue_bg">
+		<a class="sidebar-brand d-flex align-items-center" href="index.html">
+			<div id="navLogo" class="sidebar-brand-icon">
+				<i class="far fa-building white_cl"></i>
+			</div>
+			<div id="navTitle" class="sidebar-brand-text white_cl">ForJob</div>
+		</a>
+	</nav>
+	
+	<div id="container">
+		
+		<form id="searchBox" method="get" action="result.html">
+			<div class="input-group">
+				<input id="searchInput" type="text" class="form-control bg-semigray border-0" name="search">
+				<div class="input-group-append">
+					<button class="btn blue_bg" type="submit">
+						<i class="fas fa-search fa-sm white_cl"></i>
+					</button>
+				</div>
+			</div>
+			<p class="f-size mt-2">* 한글로 정확한 기업명을 입력해주세요. ( ABC→에이비씨 )</p>
+		</form>
+		
+		<!-- 
+		<div id="linkArea">
+			<div id="jobplanetLink" class="link">
+				<img src="./img/jobplanet.png"/>
+			</div>
+		</div>
+		 -->
+		 
+        <div class="row">
+		</div>
+
+		<!-- 
+		<div class="jobplanet-box">
+			<div class="company-logo">
+				<a>
+					<img>
+				</a>
+			</div>
+			<dl class="company-info">
+				<dt class="name">
+					<a></a>
+				</dt>
+				<dd class="category">
+					<span></span>
+					<span class="vbar">|</span>
+					<span></span>
+					<br>
+				</dd>
+				<dd class="review">
+					<a></a>
+					<span class="vbar">|</span>
+					<a></a>
+					<span class="vbar">|</span>
+					<a></a>
+				</dd>
+			</dl>
+			<dl class="score">
+				<dt></dt>
+			</dl>
+		</div>
+		
+        <div class="row">
+        	<div class="col-lg-6">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
+					</div>
+					<div class="card-body">The styling for this basic card example
+						is created by using default Bootstrap utility classes. By using
+						utility classes, the style of the card component can be easily
+						modified with no need for any custom CSS!</div>
+				</div>
+			</div>
+			
+        	<div class="col-lg-6">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
+					</div>
+					<div class="card-body">The styling for this basic card example
+						is created by using default Bootstrap utility classes. By using
+						utility classes, the style of the card component can be easily
+						modified with no need for any custom CSS!</div>
+				</div>
+			</div>
+		</div>
+		 -->
+	</div>
+</body>
+</html>

@@ -1,41 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="EUC-KR">
+	<meta charset="UTF-8">
 	<title>ForJob</title>
 	
-	<!-- ��Ʈ��� -->
+	
+	<!-- 폰트어썸 -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     
-    <!-- ��Ÿ�� -->
+    <!-- 스타일 -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     
     <style>
-	    /* '����ī �� �꽺 �׿�' ��Ʈ */
-		@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
-		
-		html, body {
-			width: 100%;
-			height: 100%;
-			padding: 0;
-			margin: 0;
-			
-			font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-			font-size: 1.1rem;
-		}
-    	@media (max-width: 1000px) {
-	    	.f-size{
-	    		font-size: 3.5vw;
-	    	}
-    	}
-	    
     	#container{
 			vertical-align: middle;
     		text-align: center;
     	}
     	
-    	#content-box{
+    	#contentBox{
 			display: block;
 			width: 100%;
 			
@@ -45,32 +28,31 @@
 		  	transform: translate( -50%, -50% );
     	}
     	
-    	#logo{
+    	#mainLogo{
     		font-size: 8vw;
-    		color: #1da1f2;
     	}
     	@media (max-width: 1000px) {
-	    	#logo{
+	    	#mainLogo{
 	    		font-size: 20vw;
 	    	}
 	    }
     	
-    	#search-box{
+    	#searchBox{
 		  	display: inline-block;
     		width: 40%;
     		text-align: left;
     	}
     	@media (max-width: 1000px) {
-	    	#search-box{
+	    	#searchBox{
     			width: 80%;
 	    	}
 	    }
     	
-    	#search-box input{
+    	#searchBox input{
     		font-size: 1.2rem;
     	}
     	@media (max-width: 1000px) {
-	    	#search-box input{
+	    	#searchBox input{
 	    		font-size: 5.0vw;
 	    		padding: 3%;
 	    	}
@@ -78,7 +60,6 @@
     	
 	    .input-group-append > button > i {
 	    	font-size: 1.3rem;
-	    	color: white;
 	    }
     	@media (max-width: 1000px) {
 	    	.input-group-append > button > i {
@@ -91,23 +72,22 @@
 <body>
 	<div id="container">
         
-        <div id="content-box">
-        	<div id="logo">
-	        	<i class="far fa-building"></i>
+        <div id="contentBox">
+        	<div id="mainLogo">
+	        	<i class="far fa-building blue_cl"></i>
 	        </div>
-			<form id="search-box" >
+			<form id="searchBox" method="get" action="result.html">
 				<div class="input-group">
-					<input type="text" class="form-control bg-semigray border-0" aria-label="Search">
+					<input type="text" class="form-control bg-semigray border-0" name="search">
 					<div class="input-group-append">
-						<button class="btn" style="background-color:#1da1f2;" type="button">
-							<i class="fas fa-search fa-sm"></i>
+						<button class="btn blue_bg" type="submit">
+							<i class="fas fa-search fa-sm white_cl"></i>
 						</button>
 					</div>
 				</div>
-				<p class="f-size mt-2">* �ѱ۷� �Է����ּ���. ( ABC�濡�̺� )</p>
+				<p class="f-size mt-2">* 한글로 정확한 기업명을 입력해주세요. ( ABC→에이비씨 )</p>
 			</form>
         </div>
-		
 	</div>
 </body>
 </html>
