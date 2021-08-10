@@ -97,6 +97,11 @@ ul, li {
 	letter-spacing: .05rem;
 }
 
+.nav-link span:hover {
+	transition: all ease 0.5s;
+	color: var(--mainblue);
+}
+
 .nav-link span {
 	margin-left: 8%;
 	letter-spacing: .04rem;
@@ -107,6 +112,23 @@ ul, li {
 	font-size: 1em;
 }
 
-.modal-content {
+#alertModal .modal-content {
 	text-align: center;
+}
+
+#howModal .modal-dialog{
+	max-width: 100%;
+	width: 60%;
+	text-align: left;
+}
+
+#howModal .modal-body > a {
+	font-size: 1rem;
+	font-weight: bold;
+	background-color: var(--mainblue);
+	color: white;
+	transition: all ease 0.4s;
+}
+#howModal .modal-body > a:hover {
+	background-color: gray;
 }

@@ -110,11 +110,36 @@
 						<a class="dropdown-item text-gray-600" href="#" data-toggle="modal" data-target="#alertModal" onclick="copyToClipboard('kkin06@naver.com');">
 							<i class="fas fa-envelope fa-sm mr-2"></i> kkin06@naver.com
 						</a>
+						<a class="dropdown-item text-gray-600" href="#" data-toggle="modal" data-target="#howModal">
+							<i class="fas fa-question fa-sm mr-2"></i> How To Use
+						</a>
 					</div>
 				</li>
 			</ul>
 			</div>
 		</nav>
+		
+	    <div class="modal fade" id="howModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h5 class="modal-title" id="exampleModalLabel">❓ How To Use</h5>
+	                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">×</span>
+	                    </button>
+	                </div>
+	                <div class="modal-body">
+	                	💻 제공환경 : PC / Chrome 브라우저<br>
+						📅 구현 기간 : 2021. 08. 06 ~ 08. 10<br>
+						📦 필요환경 : Chrome - Allow CORS: Access-Control-Allow-Origin<br><br>
+						
+						▪&nbsp;&nbsp;&nbsp;웹 크롤링 과정에서 크로스도메인 에러가 발생하므로 반드시 크롬 웹 스토어에서 <a href="https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=ko" target="_blank">"Allow CORS"</a> 를 설치해주셔야 합니다.<br>
+						▪&nbsp;&nbsp;&nbsp;기업명은 반드시 한글, 풀네임으로 작성해주셔야 합니다.<br>
+						▪&nbsp;&nbsp;&nbsp;검색 결과에서 첫 번째 기업을 가져오기 때문에 중복되거나 짧은 글자는 제대로 검색되지 않을 수 있습니다.<br><br>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
 		
 	    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	        <div class="modal-dialog" role="document">
