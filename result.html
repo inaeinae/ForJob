@@ -222,6 +222,8 @@
 	    .jobkorea-info table{
 	    	text-align: left;
 	    	width: 100%;
+	    	border-spacing: 0 0.4vw !important;
+	    	border-collapse: unset;
 	    }
 	    
 	    .jobkorea-info tr{
@@ -323,6 +325,12 @@
 			var pUrl = "https://www.jobplanet.co.kr/search/companies/" + search;
 			
 			$.get(decodeURI(pUrl), function(data) {
+				data = data.replace(sliceCode(data, '<!DOCTYPE html>', '<body', 1), '');
+				var count = data.match(/<script/g).length;
+				for(var i = 0; i < count; i++) {
+					data = data.replace(sliceCode(data, '<script', '/script>', 1) + 8, '');
+				}
+				
 				var app = '<div class="card shadow mb-4 border-left-success">' + 
 							'<div class="card-header"><p class="m-0 font-weight-bold text-success">' + '잡플래닛' + '</p></div>' + 
 							'<div class="card-body">';
@@ -360,6 +368,12 @@
 				kUrl = sliceCode(code, '<a href="', '"', 0);
 				
 				$.get(decodeURI(kUrl), function(data) {
+					data = data.replace(sliceCode(data, '<!DOCTYPE html>', '<body', 1), '');
+					var count = data.match(/<script/g).length;
+					for(var i = 0; i < count; i++) {
+						data = data.replace(sliceCode(data, '<script', '/script>', 1) + 8, '');
+					}
+					
 					var app = '<div class="card shadow mb-4 border-left-blue">' + 
 								'<div class="card-header"><p class="m-0 font-weight-bold blue_cl">' + '잡코리아' + '</p></div>' + 
 								'<div class="card-body">';
@@ -411,7 +425,7 @@
 							
 							app = app + '<div class="jobkorea-info section-margin">'
 							
-							var point = 0, targetCode = "";
+							var point = 0, targetCode = "", tempCode = "";
 							var trCount = infoCode.match(/<\/tr>/g).length;
 							
 							for(var i = 0; i < trCount; i++) {
@@ -421,7 +435,7 @@
 								
 								var slice = sliceCode(targetCode, '', '</tr>', 1) + '</tr>';
 								if(slice.match(/<\/td>/g).length > 1)
-									slice = slice.replace('</td>', '</td></tr><tr class="field-label">');
+									slice = slice.replace('</td>', '</td></tr><tr class="field">');
 								
 								app = app + slice;
 							}
@@ -451,6 +465,12 @@
 				sUrl = sliceCode(code, '<a href="', '"', 0);
 				
 				$.get(decodeURI(sUrl), function(data) {
+					data = data.replace(sliceCode(data, '<!DOCTYPE html>', '<body', 1), '');
+					var count = data.match(/<script/g).length;
+					for(var i = 0; i < count; i++) {
+						data = data.replace(sliceCode(data, '<script', '/script>', 1) + 8, '');
+					}
+					
 					var app = '<div class="card shadow mb-4 border-left-primary">' + 
 								'<div class="card-header"><p class="m-0 font-weight-bold text-primary">' + '사람인' + '</p></div>' + 
 								'<div class="card-body">';
