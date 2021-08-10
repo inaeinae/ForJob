@@ -28,6 +28,10 @@ html, body {
 	--lightgray: #cfd0d8;
 }
 
+.font-style{
+	font-family: 'Spoqa Han Sans Neo', 'sans-serif' !important;
+}
+
 .blue_cl{
 	color: #1da1f2 !important;
 }
@@ -67,4 +71,42 @@ a:hover {
 
 ul, li {
 	list-style: none;
+}
+
+.navstyle {
+	/* 
+	background-color: var(--mainblue);
+	color: white;
+	 */
+	color: #6e707e;
+}
+
+.navbar {
+	width: 100%; height: 100%;
+}
+
+#navLogo {
+	font-size: 1.5rem;
+	margin-right: 9%;
+}
+
+#navTitle {
+	font-size: 1.3rem;
+	font-weight: 500;
+	text-align: center;
+	letter-spacing: .05rem;
+}
+
+.nav-link span {
+	margin-left: 8%;
+	letter-spacing: .04rem;
+	font-size: 1.2rem;
+}
+
+.fa-sm {
+	font-size: 1em;
+}
+
+.modal-content {
+	text-align: center;
 }
