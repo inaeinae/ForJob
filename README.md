@@ -2,11 +2,10 @@
 
 <br>
 
-[💼 ForJob 링크](https://inaeinae.github.io/ForJob/)
-
-💻 제공환경 : PC / Chrome 브라우저<br>
-📅 구현 기간 : 2021. 08. 06 ~ 08. 10 (실 구현 기간 3일)<br>
-📦 필요환경 : Chrome - Allow CORS: Access-Control-Allow-Origin<br>
+[💼 ForJob 링크](https://inaeinae.github.io/ForJob/)<br>
+💻 **제공환경 &nbsp;:&nbsp; PC / Chrome 브라우저**<br>
+📅 **구현 기간 &nbsp;:&nbsp; 2021. 08. 06 ~ 08. 10** &nbsp;(유지보수 ing)<br>
+📦 **필요환경 &nbsp;:&nbsp; Chrome - Allow CORS**<br>
 
 <br>
 
